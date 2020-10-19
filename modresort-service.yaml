@@ -8,6 +8,8 @@ metadata:
     app.ibm.com/deployable-version: 1.0.0    
   labels:
     app: modresort-app
+    component: main
+    package: modresort
 spec:
   template:
     kind: Service
