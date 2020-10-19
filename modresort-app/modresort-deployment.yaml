@@ -1,0 +1,45 @@
+apiVersion: app.ibm.com/v1alpha1
+kind: Deployable
+metadata:
+  name: modresort-deployment
+  namespace: modresort-entitlement-5
+  annotations:
+    app.ibm.com/is-local-deployable: "false"
+    app.ibm.com/deployable-version: 1.0.0    
+  labels:
+    app: modresort-app
+spec:
+  template:
+    kind: Deployment
+    apiVersion: apps/v1
+    metadata:
+      name: modresort-deployment
+      labels:
+        app: modresort-app
+    spec:
+      selector:
+        matchLabels:
+          app: modresort-app
+          tier: frontend
+      replicas: 1
+      template:
+        metadata:
+          labels:
+            app: modresort-app
+            tier: frontend
+        spec:
+          containers:
+            - name: frontend
+              image: "kpostreich/modresort:1.0"
+              imagePullPolicy: Always
+              ports:
+                - containerPort: 9080
+              env:
+              - name: GET_HOSTS_FROM
+                value: dns
+              - name: WLP_LOGGING_CONSOLE_FORMAT
+                value: json
+              - name: WLP_LOGGING_CONSOLE_LOGLEVEL
+                value: info
+              - name: WLP_LOGGING_CONSOLE_SOURCE
+                value: message,trace,accessLog,ffdc
