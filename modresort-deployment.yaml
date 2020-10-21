@@ -31,4 +31,3 @@ spec:
             value: info
           - name: WLP_LOGGING_CONSOLE_SOURCE
             value: message,trace,accessLog,ffdc
-
